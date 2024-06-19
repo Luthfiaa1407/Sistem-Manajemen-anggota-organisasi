@@ -72,3 +72,35 @@ def search_members(self):
         except FileNotFoundError:
             print("\nNo members found. The database is empty.")
 
+
+def main():
+    anggota = Anggota()
+    while True:
+        Anggota.clr_scr()
+        anggota.display_menu()
+        choice = input("\nEnter your choice: ")
+
+        if choice == '1':
+            Anggota.clr_scr()
+            anggota.add_member()
+        elif choice == '2':
+            Anggota.clr_scr()
+            anggota.view_members()
+        elif choice == '3':
+            Anggota.clr_scr()
+            anggota.search_members()
+        elif choice == '4':
+            Anggota.clr_scr()
+            anggota.update_member()
+        elif choice == '5':
+            Anggota.clr_scr()
+            anggota.delete_member()
+        elif choice == '6':
+            break
+        else:
+            print("\nInvalid choice! Please try again.")
+
+        input("\nPress Enter to continue...")
+
+if __name__ == "__main__":
+    main()
