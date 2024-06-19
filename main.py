@@ -19,7 +19,7 @@ class Anggota:
         print("5. " + self.choice_five)
         print("6. " + self.choice_six)
 
-    def clr_scr():
+    def clr_scr(self):
         print("\n")
 
     def add_member(self):
@@ -37,14 +37,14 @@ class Anggota:
             print("\nNomor Handphone Harus 12 Digit!")
             return
 
-        Divisi = input("Divisi: ")
+        divisi = input("Divisi: ")
         prodi = input("Prodi: ")
         angkatan = input("Angkatan: ")
 
         with open(self.member_database, mode='a', newline='') as file:
             writer = csv.writer(file)
-            writer.writerow([name, npm, phonenum, prodi, angkatan])
-        print(f"\n{name} telah ditambahkan ke database.")
+            writer.writerow([name, npm, phonenum, divisi, prodi, angkatan])
+        print(f"\n{name} has been added to the database.")
 
     def view_members(self):
         try:
@@ -55,7 +55,7 @@ class Anggota:
                 for row in members:
                     print(", ".join(row))
         except FileNotFoundError:
-            print("\nAnggota Tidak Ditemukan!.")
+            print("\n Tidak Ada Anggota!.")
 
     def search_members(self):
         search_term = input("Enter the name to search: ").lower()
@@ -72,10 +72,62 @@ class Anggota:
         except FileNotFoundError:
             print("\nNo members found. The database is empty.")
 
+    def update_member(self):
+        name = input("Enter the name of the member to update: ")
+        try:
+            member_found = False
+            updated_data = []
+            with open(self.member_database, "r", encoding="utf-8") as file:
+                reader = csv.reader(file)
+                for row in reader:
+                    if len(row) > 0:
+                        if name.lower() == row[0].lower():
+                            member_found = True
+                            print("Current data:")
+                            print("Name:", row[0])
+                            print("NPM:", row[1])
+                            print("Phone Number:", row[2])
+                            print("Divisi:", row[3])
+                            print("Prodi:", row[4])
+                            print("Angkatan:", row[5])
+
+                            new_name = input("Enter new name : ")
+                            if new_name:
+                                row[0] = new_name
+                            new_npm = input("Enter new NPM : ")
+                            if new_npm:
+                                row[1] = new_npm
+                            new_phonenum = input("Enter new phone number : ")
+                            if new_phonenum:
+                                row[2] = new_phonenum
+                            new_divisi = input("Enter new divisi : ")
+                            if new_divisi:
+                                row[3] = new_divisi
+                            new_prodi = input("Enter new prodi : ")
+                            if new_prodi:
+                                row[4] = new_prodi
+                            new_angkatan = input("Enter new angkatan : ")
+                            if new_angkatan:
+                                row[5] = new_angkatan
+
+                            updated_data.append(row)
+                        else:
+                            updated_data.append(row)
+
+            if member_found:
+                with open(self.member_database, "w", encoding="utf-8") as file:
+                    writer = csv.writer(file)
+                    writer.writerows(updated_data)
+                print(f"\n{name} has been updated in the database.")
+            else:
+                print(f"\n{name} not found in the database.")
+        except FileNotFoundError:
+            print("\nNo members found. The database is empty.")
+
     def delete_member(self):
         name = input("Enter Name to Delete: ")
         try:
-            member_found = False
+            member_found =False
             updated_data = []
             with open(self.member_database, "r", encoding="utf-8") as file:
                 reader = csv.reader(file)
@@ -96,31 +148,26 @@ class Anggota:
         except FileNotFoundError:
             print("\nNo members found. The database is empty.")
 
-
-
-
-
 def main():
     anggota = Anggota()
     while True:
-        Anggota.clr_scr()
         anggota.display_menu()
         choice = input("\nEnter your choice: ")
 
         if choice == '1':
-            Anggota.clr_scr()
+            anggota.clr_scr()
             anggota.add_member()
         elif choice == '2':
-            Anggota.clr_scr()
+            anggota.clr_scr()
             anggota.view_members()
         elif choice == '3':
-            Anggota.clr_scr()
+            anggota.clr_scr()
             anggota.search_members()
         elif choice == '4':
-            Anggota.clr_scr()
+            anggota.clr_scr()
             anggota.update_member()
         elif choice == '5':
-            Anggota.clr_scr()
+            anggota.clr_scr()
             anggota.delete_member()
         elif choice == '6':
             break
