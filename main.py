@@ -73,6 +73,21 @@ def search_members(self):
             print("\nNo members found. The database is empty.")
 
 
+
+def delete_member(self):
+        name = input("Enter Name to Delete: ")
+        try:
+            member_found = False
+            updated_data = []
+            with open(self.member_database, "r", encoding="utf-8") as file:
+                reader = csv.reader(file)
+                for row in reader:
+                    if len(row) > 0:
+                        if name.lower() != row[0].lower():
+                            updated_data.append(row)
+                        else:
+                            member_found = True
+
 def main():
     anggota = Anggota()
     while True:
