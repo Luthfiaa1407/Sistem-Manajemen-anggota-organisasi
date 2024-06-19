@@ -88,6 +88,16 @@ def delete_member(self):
                         else:
                             member_found = True
 
+            if member_found:
+                with open(self.member_database, "w", encoding="utf-8") as file:
+                    writer = csv.writer(file)
+                    writer.writerows(updated_data)
+                print(f"\n{name} Telah Dihapus dari Keanggotaan!.")
+            else:
+                print(f"\n{name} Tidak Ditemukan!.")
+        except FileNotFoundError:
+            print("\nNo members found. The database is empty.")
+
 def main():
     anggota = Anggota()
     while True:
