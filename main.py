@@ -56,3 +56,19 @@ class Anggota:
                     print(", ".join(row))
         except FileNotFoundError:
             print("\nAnggota Tidak Ditemukan!.")
+
+def search_members(self):
+        search_term = input("Enter the name to search: ").lower()
+        found = False
+        try:
+            with open(self.member_database, mode='r') as file:
+                reader = csv.reader(file)
+                for row in reader:
+                    if search_term in row[0].lower():
+                        print(", ".join(row))
+                        found = True
+            if not found:
+                print("\nNothing!.")
+        except FileNotFoundError:
+            print("\nNo members found. The database is empty.")
+
