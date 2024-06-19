@@ -57,7 +57,7 @@ class Anggota:
         except FileNotFoundError:
             print("\nAnggota Tidak Ditemukan!.")
 
-def search_members(self):
+    def search_members(self):
         search_term = input("Enter the name to search: ").lower()
         found = False
         try:
@@ -72,9 +72,7 @@ def search_members(self):
         except FileNotFoundError:
             print("\nNo members found. The database is empty.")
 
-
-
-def delete_member(self):
+    def delete_member(self):
         name = input("Enter Name to Delete: ")
         try:
             member_found = False
@@ -97,6 +95,10 @@ def delete_member(self):
                 print(f"\n{name} Tidak Ditemukan!.")
         except FileNotFoundError:
             print("\nNo members found. The database is empty.")
+
+
+
+
 
 def main():
     anggota = Anggota()
